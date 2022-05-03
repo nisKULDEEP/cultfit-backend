@@ -8,8 +8,10 @@ const {
   uploadProducts,
   updateProducts,
   deleteProduct,
+  getProduct,
 } = require('../controllers/product.controller');
 
+app.get('/:id', getProduct);
 app.get('/', allProducts);
 app.post('/upload', middleware.isAdmin, uploadProducts);
 app.patch('/:id', updateProducts);

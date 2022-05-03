@@ -23,6 +23,24 @@ async function allProducts(req, res) {
   }
 }
 
+async function getProduct(req, res) {
+  try {
+    const productData = await productModel.findOne({ _id: req.params.id });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'data uploaded',
+      data: productData,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'failed',
+      message: 'data uploading failed',
+      error,
+    });
+  }
+}
+
 async function uploadProducts(req, res) {
   try {
     const productData = await productModel.create(req.body);
@@ -82,4 +100,5 @@ module.exports = {
   uploadProducts,
   updateProducts,
   deleteProduct,
+  getProduct,
 };
