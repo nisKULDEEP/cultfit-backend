@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     // select: false, //use for hide from sending to postman
   },
+  gender: { type: String },
   // passwordConfirm: {
   //   type: String,
   //   require: [true, 'Please confirm your password'],
