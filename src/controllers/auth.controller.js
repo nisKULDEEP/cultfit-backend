@@ -44,7 +44,7 @@ async function userSignin(req, res, next) {
     // console.log(req.body);
     let { token } = req.headers;
     token = token.split(' ')[1];
-    console.log(token);
+    // console.log(token);
     if (token && verifyToken(token)) {
       const tokenDetails = await tokenModel.findOne({ token });
       if (tokenDetails) {
