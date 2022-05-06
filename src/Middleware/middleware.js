@@ -35,15 +35,16 @@ function isAdmin(req, res, next) {
     token = token.split(' ')[1];
     const response = JWTService.verifyToken(token);
 
+    console.log(response);
     if (response.role !== 'ADMIN') {
-      res.json({
+      res.status(300).json({
         message: 'User is not Admin.Only Admin can access this route',
       });
     }
 
     next();
   } catch (error) {
-    res.json(error);
+    res.status(400).json(error);
   }
 }
 

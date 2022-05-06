@@ -71,45 +71,6 @@ app.get('/login/success', async (req, res) => {
   } else {
     res.status(400).json({ message: 'something wrong' });
   }
-
-  // if (req.user) {
-  //   const { email } = req.user;
-
-  //   const userDetails = await userModel.findOne({ email }).select('-password');
-  //   // console.log(userDetails);
-  //   if (userDetails) {
-  //     const token = JWTtoken.generateToken({ userDetails });
-  //     await tokenModel.create({ token, userId: userDetails._id });
-
-  //     res.status(200).json({
-  //       status: 'login successfull',
-  //       token,
-  //       userDetails,
-  //     });
-  //   } else {
-  //     const userDetailsObj = {
-  //       first_name: req.user.given_name,
-  //       last_name: req.user.family_name,
-  //       email,
-  //       photo: req.user.picture,
-  //       password: encryptDecrypt.encryptPassword(req.user.given_name),
-  //     };
-
-  //     const data = await userModel.create(userDetailsObj);
-
-  //     const token = JWTtoken.generateToken({ userDetails });
-  //     await tokenModel.create({ token, userId: data._id });
-  //     res.status(200).json({
-  //       status: ' Registeration success',
-  //       token,
-  //       userDetails: data,
-  //     });
-  //   }
-  // } else {
-  //   res.status(400).json({
-  //     status: 'login failed',
-  //   });
-  // }
 });
 
 app.get(
