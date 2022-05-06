@@ -1,20 +1,38 @@
 const passport = require('passport');
 require('dotenv').config();
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
-      // '455210522702-djfok8d0f6lc70q63l3mo3p90un2uh90.apps.googleusercontent.com',
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: 'http://127.0.0.1:3030/google/callback',
-      passReqToCallback: true,
+      callbackURL: 'http://127.0.0.1:9999/google/callback',
+      // passReqToCallback: true,
     },
-    (request, accessToken, refreshToken, profile, done) => {
+    function (request, accessToken, refreshToken, profile, done) {
       return done(null, profile);
     }
   )
 );
+
+// passport.use(new FacebookStrategy({
+//   clientID: 407941370877416,
+//   clientSecret: '3b505b8e1aef5d0f0503b8a94865280a',
+//   callbackURL: "http://localhost:3000/auth/facebook/callback"
+// },
+// function(accessToken, refreshToken, profile, cb) {
+
+//     return cb(err, user);
+// }));
 
 module.exports = passport;

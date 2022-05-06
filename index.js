@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cookieSession = require('cookie-session');
 
 require('dotenv').config();
 
@@ -13,8 +14,21 @@ const passport = require('./src/utils/passport');
 
 //Middlewares
 app.use(bodyParser.json([]));
-app.use(passport.initialize());
-app.use(cors());
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['key1', 'key2'],
+  })
+);
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(
+//   cors({
+//     origin: 'http://127.0.0.1:3000',
+//     methods: 'GET,POST, PUT, DELETE',
+//     credentials: true,
+//   })
+// );
 
 //Routes
 app.use('/users', userRoute);
@@ -28,7 +42,7 @@ mongoose.connect(db).then(() => {
   console.log('DB connected');
 });
 
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 9999;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
