@@ -44,6 +44,7 @@ async function getProduct(req, res) {
 async function uploadProducts(req, res) {
   try {
     const productData = await productModel.create(req.body);
+
     res.status(200).json({
       status: 'success',
       message: 'data uploaded',

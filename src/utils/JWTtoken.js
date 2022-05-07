@@ -10,11 +10,16 @@ function generateToken(payload) {
 }
 
 async function verifyToken(token) {
-  const data = jwt.verify(token, SECRET_KEY);
-  if (!data) {
-    await tokenModel.findOneAndDelete({ token });
+  try {
+    const data = jwt.verify(token, SECRET_KEY);
+    // console.log(data)
+    if (!data) {
+      await tokenModel.findOneAndDelete({ token });
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
   }
-  return data;
 }
 
 module.exports = {

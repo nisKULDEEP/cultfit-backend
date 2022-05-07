@@ -20,7 +20,7 @@ app.use(
     keys: ['key1', 'key2'],
   })
 );
-app.use(cors());
+// app.use(cors());
 // app.use(passport.initialize());
 // app.use(passport.session());
 // app.use(

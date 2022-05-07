@@ -1,5 +1,6 @@
 const JWTService = require('../utils/JWTtoken');
 const tokenModel = require('../model/tokenModel');
+const userModel = require('../model/userModel');
 
 async function isValidToken(req, res, next) {
   try {
@@ -29,15 +30,17 @@ async function isValidToken(req, res, next) {
   }
 }
 
-function isAdmin(req, res, next) {
+async function isAdmin(req, res, next) {
   try {
     let { token } = req.headers;
     token = token.split(' ')[1];
-    const response = JWTService.verifyToken(token);
+    const response = await JWTService.verifyToken(token);
+    const result = await tokenModel.findOne({ token });
 
-    console.log(response);
-    if (response.role !== 'ADMIN') {
-      res.status(300).json({
+    const userDetails = await userModel.findById(result.userId);
+
+    if (!response || !result || !userDetails || userDetails.role !== 'ADMIN') {
+      return res.status(300).json({
         message: 'User is not Admin.Only Admin can access this route',
       });
     }
